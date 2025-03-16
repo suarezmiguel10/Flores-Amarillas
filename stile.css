@@ -1,0 +1,278 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, orange, #E0F7FA);
+    overflow: hidden;
+}
+
+.garden-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-button {
+    padding: 1.5rem 3rem;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #FFD700, #FFA000);
+    border: none;
+    border-radius: 2rem;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    z-index: 100;
+}
+
+.start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.click-hint {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+    animation: bounce 1s infinite;
+}
+
+.arrow {
+    font-size: 2rem;
+    color: #FFD700;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.flowers-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 2rem 8rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.flower {
+    position: relative;
+    transform-origin: bottom;
+    animation: growFlower 2.5s ease-out forwards;
+    opacity: 0;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin: 0 2%;
+}
+
+.flower:nth-child(even) {
+    margin-bottom: 4rem;
+}
+
+.flower:nth-child(3n) {
+    margin-bottom: 2rem;
+}
+
+.flower:hover {
+    transform: scale(1.1);
+}
+
+.flower::after {
+    content: '👆 Click me!';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.flower:hover::after {
+    opacity: 1;
+}
+
+.stem {
+    width: 8px;
+    height: 0;
+    background: linear-gradient(to right, #2E7D32, #4CAF50);
+    border-radius: 4px;
+    position: relative;
+    animation: growStem 1.5s ease-out forwards;
+}
+
+.flower-head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 60px;
+    height: 60px;
+    animation: bloomFlower 1s ease-out forwards;
+    animation-delay: 1.5s;
+}
+
+.petal {
+    position: absolute;
+    width: 25px;
+    height: 40px;
+    background: #FFD700;
+    border-radius: 50%;
+    transform-origin: bottom center;
+}
+
+.center {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #FFA000;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.leaf {
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    background: #4CAF50;
+    border-radius: 50%;
+    transform-origin: left center;
+    animation: growLeaf 1s ease-out forwards;
+    opacity: 0;
+}
+
+.message-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 100;
+    animation: popMessage 0.5s ease-out forwards;
+}
+
+.message-popup h2 {
+    color: #FF69B4;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.message-popup p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes growStem {
+    0% { height: 0; }
+    100% { height: 200px; }
+}
+
+@keyframes bloomFlower {
+    0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) scale(1.2) rotate(180deg); }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+}
+
+@keyframes growFlower {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes growLeaf {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-20deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(-20deg);
+    }
+}
+
+@keyframes popMessage {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes sway {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.butterfly {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    animation: flyButterfly 15s linear infinite;
+    z-index: 10;
+}
+
+.butterfly::before,
+.butterfly::after {
+    content: '🦋';
+    position: absolute;
+    font-size: 20px;
+    animation: flapWings 0.2s ease-in-out infinite alternate;
+}
+
+@keyframes flyButterfly {
+    0% { left: -10%; top: 50%; }
+    25% { left: 25%; top: 30%; }
+    50% { left: 50%; top: 50%; }
+    75% { left: 75%; top: 30%; }
+    100% { left: 110%; top: 50%; }
+}
+
+@keyframes flapWings {
+    0% { transform: scaleX(1); }
+    100% { transform: scaleX(-1); }
+}
